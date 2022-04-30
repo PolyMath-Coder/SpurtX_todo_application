@@ -16,10 +16,13 @@ model User {
   lastName  String?
   createdAt DateTime @default(now())
 
-  email String
+  email String  @unique
   hash  String
 
-  
+  todoItems Todo[]
+
+  @@map("users")
+
 
 }
 
@@ -33,5 +36,11 @@ model Todo {
   updatedAt DateTime @updatedAt
 
   dueFutureDate DateTime  @updatedAt
+
+  userId Int
+
+  user   User @relation(fields: [userId], references: [id])
+
   
+  @@map("todos")
 }
