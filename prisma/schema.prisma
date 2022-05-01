@@ -19,7 +19,7 @@ model User {
   email String  @unique
   hash  String
 
-  todoItems Todo[]
+  todo Todo[]
 
   @@map("users")
 
@@ -28,14 +28,11 @@ model User {
 
 model Todo {
   id Int @id @default(autoincrement())
-  todo_Activity String 
+  todo_Activity    String 
+  statusOfActivity String
   createdAt DateTime @default(now())
 
-  statusOfActivity String
   taskCompleted Boolean? @default(false)
-  updatedAt DateTime @updatedAt
-
-  dueFutureDate DateTime  @updatedAt
 
   userId Int
 

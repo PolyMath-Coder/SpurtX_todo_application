@@ -14,11 +14,9 @@ CREATE TABLE "users" (
 CREATE TABLE "todos" (
     "id" SERIAL NOT NULL,
     "todo_Activity" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "statusOfActivity" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "taskCompleted" BOOLEAN DEFAULT false,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-    "dueFutureDate" TIMESTAMP(3) NOT NULL,
     "userId" INTEGER NOT NULL,
 
     CONSTRAINT "todos_pkey" PRIMARY KEY ("id")
