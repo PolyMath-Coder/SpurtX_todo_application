@@ -2,7 +2,7 @@
 
 ## Overall Objective
 
-This is a complex **Todo** Application that enables an intended valid/authorised user perform CRUD Operation i.e.
+A complex **Todo** Application that enables an intended valid/authorised user perform basic CRUD Operations i.e.
 
 - Create and schedule a task
 - Collect and view all created todo Items.
