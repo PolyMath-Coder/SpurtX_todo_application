@@ -1,8 +1,8 @@
 {
   "name": "spurtx_trial_project",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "A complex Todo Application that enables an intended valid/authorised user perform basic CRUD Operations",
+  "author": "Ayooluwa Adeleke",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
