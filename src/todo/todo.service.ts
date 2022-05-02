@@ -17,6 +17,7 @@ export class TodoService {
   async createTodo(
     userId: number,
     dto: CreateTodoDto,
+    msg: string,
   ) {
     const todo = await this.prisma.todo.create({
       data: {
@@ -24,7 +25,10 @@ export class TodoService {
         ...dto,
       },
     });
-    return todo;
+    return {
+      msg: 'Congrats, you just created a task!',
+      todo,
+    };
   }
   getAllTodos(userId: number) {
     return this.prisma.todo.findMany({
@@ -76,6 +80,7 @@ export class TodoService {
   async deleteTodo(
     userId: number,
     toDoId: number,
+    msg: string,
   ) {
     const todo =
       await this.prisma.todo.findUnique({
@@ -89,11 +94,15 @@ export class TodoService {
       );
     }
     //if a valid user, delete todoitem(s)
-    await this.prisma.todo.delete({
-      where: {
-        id: toDoId,
-      },
-    });
-    return { msg: 'item now deleted' };
+    const deletedTodo =
+      await this.prisma.todo.delete({
+        where: {
+          id: toDoId,
+        },
+      });
+    return {
+      msg: 'This task was just Deleted!',
+      deletedTodo,
+    };
   }
 }

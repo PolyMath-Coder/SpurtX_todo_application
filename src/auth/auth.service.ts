@@ -29,6 +29,8 @@ export class AuthService {
         data: {
           email: dto.email,
           hash,
+          firstName: dto.firstName,
+          lastName: dto.lastName,
         },
         // select: {
         //   id: true,
@@ -89,7 +91,7 @@ export class AuthService {
   async signToken(
     userId: number,
     email: string,
-  ): Promise<{ accessToken: string }> {
+  ): Promise<{ data: object; token: string }> {
     const payload = {
       sub: userId,
       email,
@@ -102,6 +104,14 @@ export class AuthService {
         secret: secret,
       },
     );
-    return { accessToken: token };
+    const user = await this.prisma.user.findFirst(
+      {
+        where: {
+          email: email,
+        },
+      },
+    );
+    delete user.hash;
+    return { data: { ...user }, token };
   }
 }

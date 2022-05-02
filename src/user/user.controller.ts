@@ -20,7 +20,7 @@ import { EditUserDto } from './dto';
 @Controller('users')
 export class UserController {
   constructor(private userService: UserService) {}
-  @Get('me')
+  @Get('get-user')
   getMe(
     @GetUser() user: User,
     // @GetUser('email') email: string,

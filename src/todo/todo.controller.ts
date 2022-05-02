@@ -16,6 +16,7 @@ import { CreateTodoDto } from './dto';
 import { EditTodoDto } from './dto';
 import { GetUser } from 'src/auth/decorator';
 import { JwtGuard } from 'src/auth/guard';
+import { Todo } from '@prisma/client';
 
 @UseGuards(JwtGuard)
 @Controller('todos')
@@ -27,29 +28,33 @@ export class TodoController {
     return this.todoService.getAllTodos(userId);
   }
 
-  @Get(':id')
+  @Get(':get-todo')
   getTodo(
     @GetUser('id') userId: number,
-    @Param('id', ParseIntPipe) toDoId: number,
+    @GetUser() user: Todo,
+    @Param('get-todo', ParseIntPipe)
+    toDoId: number,
   ) {
-    return this.todoService.getTodo(
-      userId,
-      toDoId,
-    );
+    // return { user: todo };
   }
 
-  @Post('create')
+  @Post('create-todo')
   createTodo(
     @GetUser('id') userId: number,
     @Body() dto: CreateTodoDto,
+    msg: string,
   ) {
     console.log({
       dto,
     });
-    return this.todoService.createTodo(
-      userId,
-      dto,
-    );
+    const createdItem =
+      this.todoService.createTodo(
+        userId,
+        dto,
+        msg,
+      );
+
+    return createdItem;
   }
 
   @Patch(':id')
@@ -65,15 +70,19 @@ export class TodoController {
     );
   }
 
-  @HttpCode(HttpStatus.NO_CONTENT)
+  // @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
   deleteTodo(
     @GetUser('id') userId: number,
     @Param('id', ParseIntPipe) toDoId: number,
+    msg: string,
   ) {
-    return this.todoService.deleteTodo(
-      userId,
-      toDoId,
-    );
+    const deletedTask =
+      this.todoService.deleteTodo(
+        userId,
+        toDoId,
+        msg,
+      );
+    return deletedTask;
   }
 }
